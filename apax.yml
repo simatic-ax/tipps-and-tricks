@@ -1,0 +1,55 @@
+# General information
+name: "tipps_and_tricks"
+version: 0.0.1
+author: Siemens AG
+# Description for your application example or app
+description: <Description for your application example or app>
+type: app
+#URL to the repository
+repository:
+  type: git
+  url: https://github.com/simatic-ax/tipps_and_tricks
+# Environment variables
+variables:
+  APAX_BUILD_ARGS:
+    - --debug
+    - --log Trace
+  BIN_FOLDER: "./bin/plcsim"
+  BIN_FOLDER_HWPLC: "./bin/1500"
+  IP_ADDRESS: "192.168.0.1"
+  WATCHLISTS: "./watchlist"
+# targets to be compiled with apax build
+targets:
+  - "plcsim"
+  - "1500"
+# Apax scripts
+scripts:
+  load: sld --input "$BIN_FOLDER" --targetIP "$IP_ADDRESS" --restart
+    --accept-security-disclaimer --log debug --default-server-interface
+  loadhwplc: sld --input "$BIN_FOLDER_HWPLC" --targetIP "$IP_ADDRESS" --restart
+    --accept-security-disclaimer --log debug --default-server-interface
+  watch: apax mon  --targetIP "$IP_ADDRESS" --file "$WATCHLISTS/default.mon"
+    --continuously
+  dlsim:
+    - apax build
+    - apax load
+  dlhwplc:
+    - apax build
+    - apax loadhwplc
+  start:
+    - |
+      apax install -L
+      if [ "$1" = "1500" ]; then
+          apax dlhwplc
+      else
+          apax dlsim
+      fi
+      apax watch
+# Dependencies
+devDependencies:
+  "@ax/sdk": 3.0.10
+  "@simatic-ax/snippetscollection": 0.0.15
+  "@ax/trace": 2.4.1
+# Registry information, to other npm registries where Apax packages are located
+registries:
+  '@simatic-ax': 'https://npm.pkg.github.com/'

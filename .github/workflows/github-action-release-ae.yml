@@ -1,0 +1,116 @@
+name: release-package
+on: workflow_dispatch
+env:
+  PROJECT_NAME: tipps_and_tricks
+  SCOPE: simatic-ax
+  ACTIONS_REPO: simatic-ax/actions
+  ACTIONS_LOCAL: ./actions
+  VERSIONING_TOOL_REPO: simatic-ax/simatic_versioning
+
+jobs:
+  versioning:
+    name: "Bump the version of the package according to the conventional commit"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Clone repository for CI workflows"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.ACTIONS_REPO }}
+          token: ${{ secrets.CI_KIT_TOKEN }}
+          path: ./actions
+      - name: "Get the latest version of the package"
+        run: |
+          echo "@simatic-ax:registry=https://npm.pkg.github.com/" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.CI_KIT_TOKEN }}" >> .npmrc
+          echo "always-auth = true" >> .npmrc
+          cat .npmrc
+          echo "VERSION=$(npm show @${{ env.SCOPE }}/template-${{ env.PROJECT_NAME }} version --registry=https://npm.pkg.github.com --scope=${{ env.SCOPE }})" >> $GITHUB_ENV
+          echo $VERSION
+      - name: "Check contents of actions folder"
+        run: tree -d ./actions
+
+      - name: "Get latest simatic-versioning executable"
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: ${{ env.VERSIONING_TOOL_REPO }}
+          file: "conventional-commit"
+          token: ${{ secrets.CI_KIT_TOKEN }}
+
+      - id: bump
+        name: "Bump version"
+        run: |
+          sudo chmod +x ./conventional-commit
+          ./conventional-commit -c "fix(test): fix something" -v "${{ env.VERSION }}" >> .version
+          cat .version
+
+      - name: "Upload version"
+        uses: actions/upload-artifact@v3
+        with:
+          name: version
+          path: .version
+
+  create_template:
+    name: "Create template"
+    runs-on: ubuntu-latest
+    needs: versioning
+
+    steps:
+      - name: "Clone private AX github actions"
+        uses: actions/checkout@v3
+        with:
+          repository: simatic-ax/actions
+          token: ${{ secrets.CI_KIT_TOKEN }}
+          path: ./actions
+
+      - name: "Install apax and dependencies"
+        uses: ./actions/.github/actions/setup-apax-runner
+        with:
+          apax-access-token: ${{ secrets.APAX_TOKEN }}    
+      
+      - name: "Login to AX registry"
+        run: apax login --password ${{ secrets.APAX_TOKEN }}
+      
+      - name: "Login to GitHb registry"
+        run: |
+          apax login \
+          --registry "https://npm.pkg.github.com" \
+          --password ${{ secrets.CI_KIT_TOKEN }}
+
+      - name: "Download artifact with version"
+        uses: actions/download-artifact@v3
+        with:
+          name: version  
+
+      - name: "Create an empty template"
+        run: |
+          mkdir simatic-ax-${{ env.PROJECT_NAME }}
+          cd simatic-ax-${{ env.PROJECT_NAME }}
+          mkdir template
+          VERSION=$(cat ../.version)
+          echo name: "'@simatic-ax/template-${{ env.PROJECT_NAME }}'" >> apax.yml
+          echo version: $VERSION >> apax.yml
+          echo type: generic >> apax.yml  
+          echo files: >> apax.yml
+          echo  "  - "./template"" >> apax.yml
+          echo  "  - "./template/.git"" >> apax.yml
+          echo  "  - "./template/.github"" >> apax.yml
+          cat apax.yml
+          cd ..
+
+      - name: "Clone the library repository into the template folder"
+        uses: actions/checkout@v3      
+        with:
+          path: ./simatic-ax-${{ env.PROJECT_NAME }}/template
+
+      - name: "Pack"
+        run: |
+          cd ./simatic-ax-${{ env.PROJECT_NAME }}
+          cat apax.yml
+          apax pack 2>.package.err 1>.signature
+          ls template
+      - name: "Publish"
+        run: |
+          echo publishing package to https://npm.pkg.github.com
+          cd ./simatic-ax-${{ env.PROJECT_NAME }}
+          PACKAGE="$(grep -oP '(?<=\").+.apax\.tgz(?=\")' .package.err)"
+          apax publish --package $PACKAGE --registry https://npm.pkg.github.com
