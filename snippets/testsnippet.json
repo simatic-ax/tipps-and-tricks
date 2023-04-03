@@ -1,0 +1,12 @@
+{
+    "comment_snippet": {
+    "scope": "st",
+    "prefix": ["comment, snippet"],
+    "body": [
+        "/// Block description:",
+        "/// ${1:place here the comment of method}",
+        "/// Return value: $2"
+    ],
+    "description": "Add an Comment;"
+    }
+}
