@@ -22,7 +22,7 @@
 
 Result:
 
-![](img/simple_snippet.gif)
+![snippet1](img/simple_snippet.gif)
 
 ### Loop snippet:
 
@@ -47,11 +47,46 @@ Result:
 
 Result:
 
-![](img/snippet_loop.gif)
+![snippet2](img/snippet_loop.gif)
+
+## Format ST code
+
+![format](img/format.gif)
+
+## Documentation 
+
+> Currently not productive; it might not always work 
+
+### Documentation link
+
+![docu-link](img/doc-link.gif)
+
+Further information: [Documentation Link](https://console.simatic-ax.siemens.io/docs/axcode/library-toolbox/docs-v0)
+
+
+### Inline Documentation
+
+In SIMATIC AX you can add comments to your methods or functions with `///`
+
+![inline-doc](img/inline-docu.gif)
+
+## Nice shortcuts:
+
+A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [VS Code shortcuts](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) 
+
+### Add selection to next Find match (CTRL+D)
+
+![ctrl_d](img/ctrl_d.gif)
+
+### Insert cursor (Alt+Click)
+
+![alt_click](img/alt_click.gif)
 
 ## Further information
 
 [AX Code Documentation](https://console.simatic-ax.siemens.io/docs/axcode/vscode-user-snippets)
+
+[Documentation Link](https://console.simatic-ax.siemens.io/docs/axcode/library-toolbox/docs-v0)
 
 [VS Code Documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets)
 
