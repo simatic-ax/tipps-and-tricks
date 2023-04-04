@@ -49,6 +49,12 @@ Result:
 
 ![snippet2](img/snippet_loop.gif)
 
+## Import global variables
+
+Importing global variables into the `VAR_EXTERNAL` section of a POU
+
+![import](img/import_globals.gif)
+
 ## Format ST code
 
 ![format](img/format.gif)

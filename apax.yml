@@ -4,7 +4,7 @@ version: 0.0.1
 author: Siemens AG
 # Description for your application example or app
 description: <Description for your application example or app>
-type: lib
+type: app
 # URL to the repository
 repository:
   type: git
