@@ -2,7 +2,7 @@
 
 ## Snippets
 
-### Simple snippet example:
+### Simple snippet example
 
 ```json
 {
@@ -24,7 +24,7 @@ Result:
 
 ![snippet1](img/simple_snippet.gif)
 
-### Loop snippet:
+### Loop snippet
 
 ```json
 {
@@ -53,9 +53,9 @@ Result:
 
 ![format](img/format.gif)
 
-## Documentation 
+## Documentation
 
-> Currently not productive; it might not always work 
+> Currently not productive; it might not always work
 
 ### Documentation link
 
@@ -63,16 +63,15 @@ Result:
 
 Further information: [Documentation Link](https://console.simatic-ax.siemens.io/docs/axcode/library-toolbox/docs-v0)
 
-
 ### Inline Documentation
 
 In SIMATIC AX you can add comments to your methods or functions with `///`
 
 ![inline-doc](img/inline-docu.gif)
 
-## Nice shortcuts:
+## Nice shortcuts
 
-A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [VS Code shortcuts](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf) 
+A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [VS Code shortcuts](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
 ### Add selection to next Find match (CTRL+D)
 
@@ -93,6 +92,15 @@ A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [V
 [Snippets collection on GitHub](https://github.com/simatic-ax/snippetscollection)
 
 [PLC Open templates](https://github.com/simatic-ax/plcopen-snippets)
+
+### Markdownlint-cli
+
+This workspace will be checked by the [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) (there is also documented ho to install the tool) tool in the CI workflow automatically.  
+To avoid, that the CI workflow fails because of the markdown linter, you can check all markdown files locally by running the markdownlint with:
+
+```sh
+markdownlint **/*.md --fix
+```
 
 ## License and Legal information
 
