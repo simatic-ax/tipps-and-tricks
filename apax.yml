@@ -1,17 +1,18 @@
 # General information
-name: "@simatic-ax/tipps_and_tricks"
+name: '@simatic-ax/tipps_and_tricks'
 version: 0.0.1
 author: Siemens AG
 # Description for your application example or app
 description: <Description for your application example or app>
-type: generic
+type: lib
 # URL to the repository
 repository:
   type: git
   url: https://github.com/simatic-ax/tipps_and_tricks
 # targets to be compiled with apax build
 targets:
-  - "plcsim"
-  - "1500"
+  - "axunit-llvm"
 registries:
   '@simatic-ax': 'https://npm.pkg.github.com/'
+devDependencies:
+  '@ax/sdk': 3.0.12
