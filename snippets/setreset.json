@@ -1,0 +1,13 @@
+{
+    "set":
+    {
+        "prefix": ["set"],
+        "scope": "st",
+        "body":[
+            "IF (${1:TRUE}) THEN",
+            "\t ${TM_SELECTED_TEXT:variable} := TRUE;",
+            "END_IF;"
+        ],
+    "description": "create a loop section with VAR_TEMP;"
+    }
+}

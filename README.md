@@ -87,6 +87,11 @@ A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [V
 
 ![alt_click](img/alt_click.gif)
 
+## Search & Replace with Regex
+
+![regex](img/regex.gif)
+
+
 ## Further information
 
 [AX Code Documentation](https://console.simatic-ax.siemens.io/docs/axcode/vscode-user-snippets)

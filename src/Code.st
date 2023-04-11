@@ -4,26 +4,18 @@ NAMESPACE Simatic.Ax
     CLASS Code
         VAR
             test : INT := 3;
+            myBool : BOOL;
         END_VAR
 
-        VAR CONSTANT
-            NO_ERROR : WORD := WORD#16#7000;
-            FAULT_NO_CONFIG : WORD := WORD#16#8001;
-            FAULT_CONFIG_ERROR : WORD := WORD#16#8002;
-        END_VAR
-
-        /// Description:
-        /// Method `Name` returns an integer value
-        /// Return value: Any integer value
+        /// Block description:
+        /// here i can write my comment
+        /// Return value: 
         METHOD Name : INT
             VAR_INPUT // here i can put my comments 
             END_VAR
-            VAR_TEMP // here i can put my comments 
-                index : LINT;
-            END_VAR
-            FOR index := LINT#1 TO 32 DO // here i can put my comments 
-                ;
-            END_FOR;
+            IF (TRUE) THEN
+                 myBool := TRUE;
+            END_IF;
         END_METHOD
     END_CLASS
 
