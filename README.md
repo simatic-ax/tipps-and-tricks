@@ -91,7 +91,6 @@ A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [V
 
 ![regex](img/regex.gif)
 
-
 ## Further information
 
 [AX Code Documentation](https://console.simatic-ax.siemens.io/docs/axcode/vscode-user-snippets)
