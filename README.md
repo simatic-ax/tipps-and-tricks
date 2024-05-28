@@ -91,7 +91,7 @@ A complete overview of the shortcuts in `VS Code`/`AX Coce` you'll find here: [V
 
 ![regex](img/regex.gif)
 
-Valuable search&replace patterns:
+Useful search&replace patterns when you want to migrate SCL Code (exported from TIA Portal) into ST:
 ||Search field| Replace field|Example|
 |-|-|-|-|
 | Remove all # for variables of a SCL source |  #([A-Za-z])            | $1        | #statVariable --> statVariable
@@ -99,6 +99,9 @@ Valuable search&replace patterns:
 | Remove "name"                              | "([A-Za-z]*)"           | $1        | |
 | TIA-Type to ST-Type                        | TYPE "([A-Za-z0-9_]*)"  | TYPE $1 : | |  
 | Remove `"` in type declaration             | "([A-Za-z0-9_]*)"       | $1
+
+> thats's not a migration guide and it's still manual necessary. But it can make the life easier.
+
 ## Further information
 
 [AX Code Documentation](https://console.simatic-ax.siemens.io/docs/axcode/vscode-user-snippets)
