@@ -1,4 +1,21 @@
-on: push
+name: Development workflow
+
+on:
+  push:
+    branches:
+      - 'main'  # runs the workflow, once new changes have been integrated to main
+  pull_request:
+
 jobs:
-  lint-repo-and-markdown:
-    uses: simatic-ax/actions/.github/workflows/check-repository.yml@stable
+  check-links:
+    name: Check Links
+    runs-on: ubuntu-24.04
+    steps: 
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          check-modified-files-only: 'yes'
+          base-branch: 'main'
